@@ -9,6 +9,7 @@ public class GreetingServer {
     public static void main(String[] args) throws IOException, InterruptedException {
         System.out.println("hello Grpc");
         Server server= ServerBuilder.forPort(50051)
+                .addService(new GreetServiceImpl())
                 .build();
         server.start();
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
