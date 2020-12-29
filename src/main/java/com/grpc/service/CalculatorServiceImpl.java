@@ -1,4 +1,4 @@
-package com.github.greeting.server;
+package com.grpc.service;
 
 import com.proto.calculator.Calculator;
 import com.proto.calculator.CalculatorRequest;

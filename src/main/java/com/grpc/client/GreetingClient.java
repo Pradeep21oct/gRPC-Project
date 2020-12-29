@@ -1,4 +1,4 @@
-package com.github.greeting.client;
+package com.grpc.client;
 
 import com.proto.dummy.DummyServiceGrpc;
 import com.proto.greet.GreetRequest;
