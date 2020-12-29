@@ -1,9 +1,6 @@
 package com.grpc.service;
 
-import com.proto.calculator.Calculator;
-import com.proto.calculator.CalculatorRequest;
-import com.proto.calculator.CalculatorResponse;
-import com.proto.calculator.CalculatorServiceGrpc;
+import com.proto.calculator.*;
 import io.grpc.stub.StreamObserver;
 
 public class CalculatorServiceImpl extends CalculatorServiceGrpc.CalculatorServiceImplBase {
@@ -20,5 +17,23 @@ public class CalculatorServiceImpl extends CalculatorServiceGrpc.CalculatorServi
         responseObserver.onNext(response);
         responseObserver.onCompleted();
 
+    }
+
+    @Override
+    public void primeNumberDecompostion(PrimeNumberDecompostionRequest request, StreamObserver<PrimeNumberDecompostionResponse> responseObserver) {
+        Integer num=request.getNumber();
+        int divisor=2;
+        while (num>1){
+            if(num%divisor==0){
+                num=num/divisor;
+                responseObserver.onNext(PrimeNumberDecompostionResponse
+                        .newBuilder()
+                        .setPrimeFactor(divisor)
+                        .build());
+            }else {
+                divisor++;
+            }
+        }
+        responseObserver.onCompleted();
     }
 }
