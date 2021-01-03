@@ -58,6 +58,37 @@ public final class GreetServiceGrpc {
     return getGreetMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.proto.greet.GreetEveryoneRequest,
+      com.proto.greet.GreetEveryoneResponse> getGreetEveryoneMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GreetEveryone",
+      requestType = com.proto.greet.GreetEveryoneRequest.class,
+      responseType = com.proto.greet.GreetEveryoneResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+  public static io.grpc.MethodDescriptor<com.proto.greet.GreetEveryoneRequest,
+      com.proto.greet.GreetEveryoneResponse> getGreetEveryoneMethod() {
+    io.grpc.MethodDescriptor<com.proto.greet.GreetEveryoneRequest, com.proto.greet.GreetEveryoneResponse> getGreetEveryoneMethod;
+    if ((getGreetEveryoneMethod = GreetServiceGrpc.getGreetEveryoneMethod) == null) {
+      synchronized (GreetServiceGrpc.class) {
+        if ((getGreetEveryoneMethod = GreetServiceGrpc.getGreetEveryoneMethod) == null) {
+          GreetServiceGrpc.getGreetEveryoneMethod = getGreetEveryoneMethod =
+              io.grpc.MethodDescriptor.<com.proto.greet.GreetEveryoneRequest, com.proto.greet.GreetEveryoneResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GreetEveryone"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.proto.greet.GreetEveryoneRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.proto.greet.GreetEveryoneResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new GreetServiceMethodDescriptorSupplier("GreetEveryone"))
+              .build();
+        }
+      }
+    }
+    return getGreetEveryoneMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -116,6 +147,16 @@ public final class GreetServiceGrpc {
       asyncUnimplementedUnaryCall(getGreetMethod(), responseObserver);
     }
 
+    /**
+     * <pre>
+     *Bidiecrtinal
+     * </pre>
+     */
+    public io.grpc.stub.StreamObserver<com.proto.greet.GreetEveryoneRequest> greetEveryone(
+        io.grpc.stub.StreamObserver<com.proto.greet.GreetEveryoneResponse> responseObserver) {
+      return asyncUnimplementedStreamingCall(getGreetEveryoneMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -125,6 +166,13 @@ public final class GreetServiceGrpc {
                 com.proto.greet.GreetRequest,
                 com.proto.greet.GreetResponse>(
                   this, METHODID_GREET)))
+          .addMethod(
+            getGreetEveryoneMethod(),
+            asyncClientStreamingCall(
+              new MethodHandlers<
+                com.proto.greet.GreetEveryoneRequest,
+                com.proto.greet.GreetEveryoneResponse>(
+                  this, METHODID_GREET_EVERYONE)))
           .build();
     }
   }
@@ -152,6 +200,17 @@ public final class GreetServiceGrpc {
         io.grpc.stub.StreamObserver<com.proto.greet.GreetResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getGreetMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     *Bidiecrtinal
+     * </pre>
+     */
+    public io.grpc.stub.StreamObserver<com.proto.greet.GreetEveryoneRequest> greetEveryone(
+        io.grpc.stub.StreamObserver<com.proto.greet.GreetEveryoneResponse> responseObserver) {
+      return asyncClientStreamingCall(
+          getChannel().newCall(getGreetEveryoneMethod(), getCallOptions()), responseObserver);
     }
   }
 
@@ -207,6 +266,7 @@ public final class GreetServiceGrpc {
   }
 
   private static final int METHODID_GREET = 0;
+  private static final int METHODID_GREET_EVERYONE = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -239,6 +299,9 @@ public final class GreetServiceGrpc {
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_GREET_EVERYONE:
+          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.greetEveryone(
+              (io.grpc.stub.StreamObserver<com.proto.greet.GreetEveryoneResponse>) responseObserver);
         default:
           throw new AssertionError();
       }
@@ -291,6 +354,7 @@ public final class GreetServiceGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new GreetServiceFileDescriptorSupplier())
               .addMethod(getGreetMethod())
+              .addMethod(getGreetEveryoneMethod())
               .build();
         }
       }
